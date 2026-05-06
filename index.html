@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=1.8">
+    <link rel="stylesheet" href="style.css?v=1.9">
 
 
 </head>
@@ -21,21 +21,27 @@
             <div class="logo">
                 <img src="assets/logo.png" alt="Bukit Aslan Logo">
             </div>
-            <ul class="nav-links">
-                <li><a href="#" class="active">Beranda</a></li>
-                <li><a href="#about">Tentang Kami</a></li>
-                <li><a href="#info">Fasilitas</a></li>
-                <!-- <li><a href="#">Galeri</a></li> -->
-                <li><a href="#info">Tiket & Info</a></li>
-                <!-- <li><a href="#">Lokasi</a></li> -->
-                <li><a href="#contact">Kontak</a></li>
-
-            </ul>
-
-            <div class="nav-cta">
-                <a href="https://api.whatsapp.com/send/?phone=6287788827526&text&type=phone_number&app_absent=0" target="_blank" class="btn btn-primary">Reservasi</a>
+            
+            <!-- Mobile Toggle -->
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
 
+            <div class="nav-container" id="navContainer">
+                <ul class="nav-links">
+                    <li><a href="#" class="active">Beranda</a></li>
+                    <li><a href="#about">Tentang Kami</a></li>
+                    <li><a href="#info">Fasilitas</a></li>
+                    <li><a href="#info">Tiket & Info</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                </ul>
+
+                <div class="nav-cta">
+                    <a href="https://api.whatsapp.com/send/?phone=6287788827526&text&type=phone_number&app_absent=0" target="_blank" class="btn btn-primary">Reservasi</a>
+                </div>
+            </div>
         </nav>
     </header>
     <!-- NAVBAR SECTION END -->
@@ -529,11 +535,24 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.info-card, .info-header-left, .contact-header-left, .contact-main-grid, .mini-card, .contact-form-side, .about-card').forEach(el => {
-            el.classList.add('reveal');
-            revealObserver.observe(el);
+        // Mobile Menu Toggle
+        const navToggle = document.getElementById('navToggle');
+        const navContainer = document.getElementById('navContainer');
+
+        navToggle.addEventListener('click', () => {
+            navContainer.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navContainer.classList.remove('active');
+                navToggle.classList.remove('active');
+            });
         });
     </script>
+
 
     <!-- NAVBAR SCROLL SCRIPT END -->
 
