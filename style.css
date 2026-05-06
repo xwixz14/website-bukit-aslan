@@ -1140,8 +1140,18 @@ body {
 .nav-container {
     display: flex;
     align-items: center;
-    gap: 40px;
+    flex: 1;
+    justify-content: space-between;
+    margin-left: 50px;
 }
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+    margin: 0 auto; /* This centers the links */
+}
+
 
 .nav-toggle {
     display: none;
