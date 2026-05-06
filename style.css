@@ -1325,16 +1325,25 @@ body {
         justify-content: center;
     }
 
-    /* Stats Card (Mobile) */
+    /* Stats Card (Mobile) - Non-floating for cleaner look */
+    .stats-container {
+        margin-top: 40px !important;
+        position: static;
+    }
+
     .stats-card {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 20px;
         padding: 25px;
-        bottom: -80px; /* Adjusted for 2x2 height */
-        width: 92%;
-        left: 4%;
+        position: static;
+        width: 100%;
+        bottom: auto;
+        left: auto;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        transform: none;
     }
+
 
     .stat-item {
         width: 100%;
