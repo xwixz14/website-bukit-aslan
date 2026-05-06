@@ -1161,88 +1161,14 @@ body {
 /* ==================== CLEAN MOBILE RESPONSIVE (ANDROID/iOS) ==================== */
 @media (max-width: 768px) {
     /* Navbar Toggle & Hamburger */
-    .nav-toggle {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        z-index: 1001;
-    }
-
-    .nav-toggle span {
-        width: 25px;
-        height: 2px;
-        background: white;
-        transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* Animate Hamburger to X */
-    .nav-toggle.active span:nth-child(1) {
-        transform: translateY(7px) rotate(45deg);
-    }
-    .nav-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-    .nav-toggle.active span:nth-child(3) {
-        transform: translateY(-7px) rotate(-45deg);
-    }
-
-    /* Mobile Menu Overlay */
-    .nav-container {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 100%; /* Full width for better experience */
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.98);
-        backdrop-filter: blur(20px);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 40px;
-        transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 1000;
-        padding: 40px;
-        visibility: hidden; /* Hide when not active */
-    }
-
-    .nav-container.active {
-        right: 0;
-        visibility: visible;
-    }
-
-    .nav-links {
-        display: flex !important; /* Force display */
-        flex-direction: column;
-        align-items: center;
-        gap: 25px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
-
-    .nav-links li {
-        margin: 0;
-    }
-
-    .nav-links li a {
-        font-size: 24px;
-        font-weight: 500;
-        color: white !important;
-        text-decoration: none;
-        display: block;
-    }
-
-
-    .nav-cta .btn {
-        padding: 14px 40px;
-        font-size: 16px;
+    .hero {
+        align-items: flex-start; /* Force content to the top */
     }
 
     /* Hero Structure */
     .hero-content {
         flex-direction: column;
-        padding-top: 10px; /* Moved even higher */
+        padding-top: 80px; /* Adjust this to sit right below the header */
         text-align: center;
     }
 
