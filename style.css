@@ -1133,24 +1133,25 @@ body {
 
 
 
-/* Mobile Optimization */
+/* ==================== CLEAN MOBILE RESPONSIVE (ANDROID/iOS) ==================== */
 @media (max-width: 768px) {
+    /* Hero Structure */
     .hero-content {
         flex-direction: column;
-        justify-content: center;
-        text-align: center;
         padding-top: 100px;
+        text-align: left;
     }
 
     .hero-text {
         max-width: 100%;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
     }
 
+    /* Shrink Fonts */
     .hero-title {
-        font-size: 40px;
+        font-size: 42px;
         letter-spacing: -1px;
         margin-bottom: 15px;
     }
@@ -1158,13 +1159,17 @@ body {
     .hero-description {
         font-size: 14px;
         margin-bottom: 25px;
+        max-width: 100%;
+        line-height: 1.6;
     }
 
+    /* Social Icons Row on Mobile */
     .hero-socials {
         position: static;
+        transform: none;
         flex-direction: row;
-        justify-content: center;
-        gap: 20px;
+        justify-content: flex-start;
+        gap: 15px;
         margin-bottom: 30px;
     }
 
@@ -1176,6 +1181,7 @@ body {
         border: 1px solid rgba(255,255,255,0.1);
     }
 
+    /* Shrink Buttons on Mobile */
     .hero-btns {
         flex-direction: column;
         width: 100%;
@@ -1190,17 +1196,25 @@ body {
         justify-content: center;
     }
 
+    /* Stats Card (Mobile) */
     .stats-card {
         flex-direction: column;
         gap: 20px;
-        padding: 30px 20px;
-        bottom: -150px;
+        padding: 30px;
+        bottom: -120px;
+        width: 90%;
+        left: 5%;
     }
 
+    .stat-item { width: 100%; border: none; padding: 0; }
     .stat-divider { display: none; }
     
     .info-grid { grid-template-columns: 1fr; }
     .contact-main-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+    .hero-title { font-size: 36px; }
 }
 
 
@@ -1354,3 +1368,84 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* ==================== ANDROID & iOS RESPONSIVE REBUILD ==================== */
+@media (max-width: 768px) {
+    /* Navbar */
+    .logo img { height: 35px; }
+    .btn-reserve { padding: 10px 20px; font-size: 13px; }
+
+    /* Hero Section */
+    .hero-content {
+        flex-direction: column;
+        padding-top: 100px;
+        text-align: left;
+    }
+
+    .hero-text {
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .hero-title {
+        font-size: 42px;
+        letter-spacing: -1px;
+        margin-bottom: 15px;
+    }
+
+    .hero-description {
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 25px;
+    }
+
+    /* Social Icons Row (Mobile Only) */
+    .hero-socials {
+        position: static;
+        transform: none;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    .hero-socials a {
+        width: 38px;
+        height: 38px;
+        font-size: 14px;
+    }
+
+    /* Buttons (Mobile Only) */
+    .hero-btns {
+        flex-direction: column;
+        width: 100%;
+        max-width: 250px;
+        gap: 12px;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 14px;
+        justify-content: center;
+    }
+
+    /* Stats Card Row to Column */
+    .stats-card {
+        flex-direction: column;
+        gap: 20px;
+        padding: 30px;
+        bottom: -120px;
+    }
+
+    .stat-item { width: 100%; border: none; padding: 0; }
+    .stat-divider { display: none; }
+}
+
+@media (max-width: 480px) {
+    .hero-title { font-size: 36px; }
+    .hero-subtitle { font-size: 14px; }
+}
+
