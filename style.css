@@ -1137,9 +1137,16 @@ body {
 
 
 
+.nav-container {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
 .nav-toggle {
     display: none;
 }
+
 
 /* ==================== CLEAN MOBILE RESPONSIVE (ANDROID/iOS) ==================== */
 @media (max-width: 768px) {
