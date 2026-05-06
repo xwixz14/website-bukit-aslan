@@ -296,14 +296,18 @@ body {
     gap: 15px;
 }
 
-/* Socials on the right */
+/* Socials on the right (Desktop) */
 .hero-socials {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
     flex-direction: column;
     gap: 15px;
-    position: absolute;
-    right: 0;
+    z-index: 10;
 }
+
 
 .hero-socials a {
     width: 40px;
