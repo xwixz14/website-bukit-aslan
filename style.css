@@ -1516,6 +1516,198 @@ body {
     transition: var(--transition);
 }
 
+
+    /* Stats Card (Mobile) - Non-floating for cleaner look */
+    .stats-container {
+        margin-top: 40px !important;
+        position: static;
+    }
+
+    .stats-card {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        padding: 25px;
+        position: static;
+        width: 100%;
+        bottom: auto;
+        left: auto;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        transform: none;
+    }
+
+
+    .stat-item {
+        width: 100%;
+        border: none;
+        padding: 0;
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+
+    .stat-icon {
+        margin: 0 auto;
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+
+    .stat-info h3 {
+        font-size: 20px;
+    }
+
+    .container {
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+
+    /* Section Typography */
+    .section-title {
+        font-size: 28px !important; /* Smaller titles */
+        line-height: 1.3;
+        margin-bottom: 15px;
+    }
+
+    .section-subtitle {
+        font-size: 11px;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+    }
+
+    .section-description, .info-intro-text, .contact-intro {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    /* Cards Shrinking - EXTRA SMALL */
+    .info-card {
+        padding: 12px;
+    }
+
+    .mini-card {
+        padding: 10px 8px;
+        gap: 6px;
+        border-radius: 12px;
+    }
+
+    .mini-card i {
+        font-size: 13px;
+        width: 28px;
+        height: 28px;
+        margin-bottom: 6px;
+    }
+
+    .mc-content h5 {
+        font-size: 8px;
+        margin-bottom: 3px;
+    }
+
+    .mc-content p {
+        font-size: 10px;
+        line-height: 1.3;
+        word-break: break-word;
+    }
+
+
+
+
+@media (max-width: 480px) {
+    .hero-title { font-size: 34px; }
+    .nav-container { width: 100%; }
+}
+
+
+
+
+
+/* ==================== FOOTER SECTION START ==================== */
+.main-footer {
+    background: #111;
+    color: white;
+    padding: 80px 0 40px;
+}
+
+.footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 2fr;
+    gap: 80px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.footer-logo {
+    height: 50px;
+    filter: brightness(0) invert(1);
+    margin-bottom: 25px;
+}
+
+.footer-brand p {
+    color: #888;
+    line-height: 1.7;
+    font-size: 15px;
+}
+
+.footer-links-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.footer-col h4 {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    margin-bottom: 25px;
+    color: white;
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li {
+    margin-bottom: 12px;
+    color: #888;
+    font-size: 14px;
+}
+
+.footer-col ul li a {
+    color: #888;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-col ul li a:hover {
+    color: var(--primary-color);
+    padding-left: 5px;
+}
+
+.footer-col ul li i {
+    color: var(--primary-color);
+    margin-right: 10px;
+    width: 20px;
+}
+
+.footer-bottom {
+    padding-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #666;
+    font-size: 13px;
+}
+
+.footer-social {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-social a {
+    color: #888;
+    font-size: 18px;
+    transition: var(--transition);
+}
+
 .footer-social a:hover {
     color: white;
     transform: translateY(-3px);
@@ -1566,6 +1758,7 @@ body {
     transform: translateY(0);
 }
 
+/* ==================== MOBILE RESPONSIVE (CONSOLIDATED v12.1) ==================== */
 @media (max-width: 992px) {
     .footer-top {
         grid-template-columns: 1fr;
@@ -1577,13 +1770,12 @@ body {
     }
 }
 
-/* ==================== ANDROID & iOS RESPONSIVE REBUILD ==================== */
 @media (max-width: 768px) {
-    /* Navbar */
+    /* Navbar Mobile */
     .logo img { height: 35px; }
     .btn-reserve { padding: 10px 20px; font-size: 13px; }
 
-    /* Hero Section */
+    /* Hero Section Mobile */
     .hero-content {
         flex-direction: column;
         padding-top: 100px;
@@ -1609,7 +1801,6 @@ body {
         margin-bottom: 25px;
     }
 
-    /* Social Icons Row (Mobile Only) */
     .hero-socials {
         position: static;
         transform: none;
@@ -1619,13 +1810,8 @@ body {
         margin-bottom: 30px;
     }
 
-    .hero-socials a {
-        width: 38px;
-        height: 38px;
-        font-size: 14px;
-    }
+    .hero-socials a { width: 38px; height: 38px; font-size: 14px; }
 
-    /* Buttons (Mobile Only) */
     .hero-btns {
         flex-direction: column;
         width: 100%;
@@ -1640,7 +1826,7 @@ body {
         justify-content: center;
     }
 
-    /* Stats Card Row to Column */
+    /* Stats Mobile */
     .stats-card {
         flex-direction: column;
         gap: 20px;
@@ -1650,12 +1836,41 @@ body {
 
     .stat-item { width: 100%; border: none; padding: 0; }
     .stat-divider { display: none; }
+
+    /* Contact Section - VERTICAL STACK (Standard Size) */
+    .contact-main-grid {
+        display: flex;
+        flex-direction: column !important;
+        gap: 30px;
+    }
+
+    .contact-info-cards, .contact-form-wrapper {
+        width: 100% !important;
+    }
+
+    .contact-form-wrapper { order: 1; }
+    .contact-info-cards { order: 2; }
+
+    .info-grid-contact {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    /* Cards Optimization */
+    .mini-card {
+        padding: 12px 10px;
+        border-radius: 12px;
+    }
+
+    .mc-content p { font-size: 11px; line-height: 1.4; }
+
+    /* Typography */
+    .section-title { font-size: 28px !important; }
+    .section-description { font-size: 13px; }
 }
 
 @media (max-width: 480px) {
     .hero-title { font-size: 36px; }
     .hero-subtitle { font-size: 14px; }
-}
-
-}  
- 
+}}
