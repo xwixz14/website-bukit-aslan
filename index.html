@@ -10,7 +10,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=12.2">
+    <link rel="stylesheet" href="style.css?v=13.6">
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -292,7 +303,25 @@
                         </div>
                     </div>
                 </div>
+                <!-- Camping & Booking Card -->
+                <div class="info-card camping-card">
+                    <div class="info-header">
+                        <i class="fas fa-campground"></i>
+                        <h3>Camping Area</h3>
+                    </div>
+                    <div class="camping-info">
+                        <p class="camping-desc">Nikmati malam bertabur bintang di area camping eksklusif kami.</p>
+                        <ul class="camping-features">
+                            <li><i class="fas fa-check"></i> Sewa Tenda Lengkap</li>
+                            <li><i class="fas fa-check"></i> Keamanan 24 Jam</li>
+                            <li><i class="fas fa-check"></i> Akses Listrik & Air</li>
+                        </ul>
+                        <div class="camping-price">Mulai dari <span>150K</span>/Malam</div>
+                        <button class="btn btn-primary btn-booking" id="openBookingModal">Booking Sekarang <i class="fas fa-calendar-check"></i></button>
+                    </div>
+                </div>
             </div>
+
         </section>
         <!-- INFO & FACILITIES SECTION END -->
         <!-- CONTACT SECTION START -->
@@ -555,5 +584,116 @@
 
     <!-- NAVBAR SCROLL SCRIPT END -->
 
+    <!-- ==================== BOOKING MODAL START ==================== -->
+    <div id="bookingModal" class="booking-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Formulir Reservasi Camping</h2>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="campingBookingForm">
+                    <div class="form-group">
+                        <label for="bookingName">Nama Lengkap</label>
+                        <input type="text" id="bookingName" placeholder="Masukkan nama Anda" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookingDate">Tanggal Check-in</label>
+                        <input type="date" id="bookingDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookingPack">Pilih Paket</label>
+                        <select id="bookingPack" required>
+                            <option value="" disabled selected>Pilih paket camping</option>
+                            <option value="Tenda A (2-3 Orang)" data-price="75000">Tenda A (2-3 Orang) - Rp75.000</option>
+                            <option value="Tenda D (4-5 Orang)" data-price="135000">Tenda D (4-5 Orang) - Rp135.000</option>
+                            <option value="Tenda B (6-7 Orang)" data-price="150000">Tenda B (6-7 Orang) - Rp150.000</option>
+                            <option value="Tenda C (5-6 Orang)" data-price="180000">Tenda C (5-6 Orang) - Rp180.000</option>
+                            <option value="Paket Peralatan Saja" data-price="65000">Paket Peralatan Saja - Rp65.000</option>
+                        </select>
+                    </div>
+                    <div id="priceEstimation" class="price-estimate" style="margin-bottom: 20px; padding: 15px; background: #f0f7e6; border-radius: 12px; border-left: 4px solid var(--primary-color); display: none;">
+                        <span style="font-size: 11px; font-weight: 800; color: #666; text-transform: uppercase;">Estimasi Biaya Sewa:</span>
+                        <div id="displayPrice" style="font-size: 20px; font-weight: 800; color: var(--primary-color);">Rp 0</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Konfirmasi via WhatsApp <i class="fab fa-whatsapp"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- ==================== BOOKING MODAL END ==================== -->
+
+    <script>
+        // Modal Logic
+        const modal = document.getElementById('bookingModal');
+        const openBtn = document.getElementById('openBookingModal');
+        const closeBtn = document.getElementById('closeModal');
+
+        if(openBtn) {
+            openBtn.onclick = () => modal.classList.add('active');
+        }
+        
+        if(closeBtn) {
+            closeBtn.onclick = () => modal.classList.remove('active');
+        }
+
+        window.onclick = (event) => {
+            if (event.target == modal) modal.classList.remove('active');
+        }
+
+        // Dynamic Price Logic
+        const packSelect = document.getElementById('bookingPack');
+        const priceDisplay = document.getElementById('displayPrice');
+        const priceContainer = document.getElementById('priceEstimation');
+
+        packSelect.addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            const price = selectedOption.getAttribute('data-price');
+            
+            if (price) {
+                priceContainer.style.display = 'block';
+                priceDisplay.textContent = 'Rp ' + parseInt(price).toLocaleString('id-ID');
+            } else {
+                priceContainer.style.display = 'none';
+            }
+        });
+
+        // WhatsApp Booking Logic
+        document.getElementById('campingBookingForm').onsubmit = function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('bookingName').value;
+            const date = document.getElementById('bookingDate').value;
+            const pack = document.getElementById('bookingPack').value;
+            const price = packSelect.options[packSelect.selectedIndex].getAttribute('data-price');
+            const formattedPrice = 'Rp ' + parseInt(price).toLocaleString('id-ID');
+            
+            const phone = "6287788827526"; // Nomor WhatsApp Bukit Aslan
+            
+            // Format Pesan Reservasi Profesional
+            const message = `*RESERVASI CAMPING BUKIT ASLAN*%0A` +
+                            `-------------------------------------------%0A` +
+                            `*Nama Lengkap:* ${name}%0A` +
+                            `*Tanggal Check-in:* ${date}%0A` +
+                            `*Paket Camping:* ${pack}%0A` +
+                            `*Estimasi Biaya:* ${formattedPrice}%0A` +
+                            `*Status:* Menunggu Konfirmasi%0A` +
+                            `-------------------------------------------%0A` +
+                            `_Mohon info ketersediaan slot. Terima kasih._`;
+
+            
+            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+            modal.classList.remove('active');
+            
+            // Reset Form
+            this.reset();
+            priceContainer.style.display = 'none';
+        };
+
+
+
+        // Footer version sync...
+
+    </script>
 </body>
 </html>
