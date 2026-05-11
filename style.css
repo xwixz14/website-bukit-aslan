@@ -816,27 +816,36 @@ body {
     letter-spacing: -0.5px;
 }
 
-.facility-list li, .camping-features li {
-    font-size: 14px !important;
-    margin-bottom: 12px !important;
+/* MENYAMAKAN SEMUA FONT DI DALAM KARTU */
+.facility-list li, 
+.camping-features li, 
+.camping-desc, 
+.price-row, 
+.op-row,
+.hours-item {
+    font-size: 14px !important; /* UKURAN STANDAR DISAMAKAN */
     line-height: 1.6 !important;
+    margin-bottom: 12px !important;
     color: #555 !important;
 }
 
 .price-header {
     background: var(--primary-color);
     color: white;
-    padding: 12px 15px;
+    padding: 12px 10px;
     border-radius: 12px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 15px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
     font-size: 10px;
     font-weight: 800;
     text-align: center;
     margin-bottom: 20px;
-    letter-spacing: 1.5px;
-    box-shadow: 0 10px 20px rgba(134, 188, 66, 0.15);
+}
+
+.price-header span {
+    flex: 1;
+    text-align: center;
 }
 
 .price-row {
