@@ -597,26 +597,37 @@
             <div class="modal-body">
                 <form id="campingBookingForm">
                     <div class="form-group">
+                        <label for="bookingType">Tipe Reservasi</label>
+                        <select id="bookingType" required>
+                            <option value="camping">Paket Camping (Tenda + Tiket Masuk)</option>
+                            <option value="tiket">Hanya Tiket Masuk Wisata</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="bookingName">Nama Lengkap</label>
                         <input type="text" id="bookingName" placeholder="Masukkan nama Anda" required>
                     </div>
                     <div class="form-group">
-                        <label for="bookingDate">Tanggal Check-in</label>
+                        <label for="bookingDate">Tanggal Kunjungan</label>
                         <input type="date" id="bookingDate" required>
                     </div>
-                    <div class="form-group">
-                        <label for="bookingPack">Pilih Paket</label>
-                        <select id="bookingPack" required>
-                            <option value="" disabled selected>Pilih paket camping</option>
+                    <div class="form-group" id="packGroup">
+                        <label for="bookingPack">Pilih Paket Camping</label>
+                        <select id="bookingPack">
+                            <option value="" disabled selected>Pilih paket tenda</option>
                             <option value="Tenda A (2-3 Orang)" data-price="75000">Tenda A (2-3 Orang) - Rp75.000</option>
                             <option value="Tenda D (4-5 Orang)" data-price="135000">Tenda D (4-5 Orang) - Rp135.000</option>
                             <option value="Tenda B (6-7 Orang)" data-price="150000">Tenda B (6-7 Orang) - Rp150.000</option>
                             <option value="Tenda C (5-6 Orang)" data-price="180000">Tenda C (5-6 Orang) - Rp180.000</option>
-                            <option value="Paket Peralatan Saja" data-price="65000">Paket Peralatan Saja - Rp65.000</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="bookingQty">Jumlah Orang</label>
+                        <input type="number" id="bookingQty" min="1" value="1" required>
+                    </div>
                     <div id="priceEstimation" class="price-estimate" style="margin-bottom: 20px; padding: 15px; background: #f0f7e6; border-radius: 12px; border-left: 4px solid var(--primary-color); display: none;">
-                        <span style="font-size: 11px; font-weight: 800; color: #666; text-transform: uppercase;">Estimasi Biaya Sewa:</span>
+                        <div id="priceBreakdown" style="font-size: 11px; color: #666; margin-bottom: 8px; line-height: 1.4;"></div>
+                        <span style="font-size: 11px; font-weight: 800; color: #666; text-transform: uppercase;">Total Estimasi Biaya:</span>
                         <div id="displayPrice" style="font-size: 20px; font-weight: 800; color: var(--primary-color);">Rp 0</div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Konfirmasi via WhatsApp <i class="fab fa-whatsapp"></i></button>
@@ -653,53 +664,95 @@
             if (event.target == modal) modal.classList.remove('active');
         }
 
-        // Dynamic Price Logic
+        // Advanced Price Logic
+        const typeSelect = document.getElementById('bookingType');
         const packSelect = document.getElementById('bookingPack');
+        const packGroup = document.getElementById('packGroup');
+        const qtyInput = document.getElementById('bookingQty');
+        const dateInput = document.getElementById('bookingDate');
         const priceDisplay = document.getElementById('displayPrice');
+        const breakdownDisplay = document.getElementById('priceBreakdown');
         const priceContainer = document.getElementById('priceEstimation');
 
-        packSelect.addEventListener('change', function() {
-            const selectedOption = this.options[this.selectedIndex];
-            const price = selectedOption.getAttribute('data-price');
+        function updatePrice() {
+            const type = typeSelect.value;
+            const qty = parseInt(qtyInput.value) || 0;
+            const dateVal = dateInput.value;
             
-            if (price) {
-                priceContainer.style.display = 'block';
-                priceDisplay.textContent = 'Rp ' + parseInt(price).toLocaleString('id-ID');
-            } else {
+            if (!dateVal) {
                 priceContainer.style.display = 'none';
+                return;
             }
-        });
+
+            // Determine if Weekend (Fri-Sun) or Weekday
+            const dateObj = new Date(dateVal);
+            const day = dateObj.getDay(); 
+            const isWeekend = (day === 0 || day === 5 || day === 6); // 0=Sun, 5=Fri, 6=Sat
+            
+            const ticketPrice = isWeekend ? 45000 : 25000;
+            const totalTickets = ticketPrice * qty;
+            
+            let total = 0;
+            let breakdown = `Tiket Masuk: Rp ${ticketPrice.toLocaleString()} x ${qty} = Rp ${totalTickets.toLocaleString()}`;
+
+            if (type === 'camping') {
+                packGroup.style.display = 'block';
+                const selectedOption = packSelect.options[packSelect.selectedIndex];
+                const tentPrice = parseInt(selectedOption.getAttribute('data-price')) || 0;
+                
+                if (tentPrice > 0) {
+                    total = totalTickets + tentPrice;
+                    breakdown += `<br>Sewa Tenda: Rp ${tentPrice.toLocaleString()}`;
+                } else {
+                    priceContainer.style.display = 'none';
+                    return;
+                }
+            } else {
+                packGroup.style.display = 'none';
+                total = totalTickets;
+            }
+
+            priceContainer.style.display = 'block';
+            breakdownDisplay.innerHTML = breakdown;
+            priceDisplay.textContent = 'Rp ' + total.toLocaleString('id-ID');
+        }
+
+        typeSelect.addEventListener('change', updatePrice);
+        packSelect.addEventListener('change', updatePrice);
+        qtyInput.addEventListener('input', updatePrice);
+        dateInput.addEventListener('change', updatePrice);
 
         // WhatsApp Booking Logic
         document.getElementById('campingBookingForm').onsubmit = function(e) {
             e.preventDefault();
             
+            const type = typeSelect.value;
             const name = document.getElementById('bookingName').value;
             const date = document.getElementById('bookingDate').value;
-            const pack = document.getElementById('bookingPack').value;
-            const price = packSelect.options[packSelect.selectedIndex].getAttribute('data-price');
-            const formattedPrice = 'Rp ' + parseInt(price).toLocaleString('id-ID');
-            
-            const phone = "6287788827526"; // Nomor WhatsApp Bukit Aslan
-            
-            // Format Pesan Reservasi Profesional
-            const message = `*RESERVASI CAMPING BUKIT ASLAN*%0A` +
-                            `-------------------------------------------%0A` +
-                            `*Nama Lengkap:* ${name}%0A` +
-                            `*Tanggal Check-in:* ${date}%0A` +
-                            `*Paket Camping:* ${pack}%0A` +
-                            `*Estimasi Biaya:* ${formattedPrice}%0A` +
-                            `*Status:* Menunggu Konfirmasi%0A` +
-                            `-------------------------------------------%0A` +
-                            `_Mohon info ketersediaan slot. Terima kasih._`;
+            const qty = qtyInput.value;
+            const totalPrice = priceDisplay.textContent;
+            const breakdown = breakdownDisplay.innerText.replace(/\n/g, '%0A');
 
+            const pack = type === 'camping' ? packSelect.value : 'Hanya Tiket';
+            
+            const phone = "6287788827526";
+            
+            const message = `*RESERVASI BUKIT ASLAN*%0A` +
+                            `-------------------------------------------%0A` +
+                            `*Tipe:* ${type === 'camping' ? 'Camping Area' : 'Tiket Masuk Wisata'}%0A` +
+                            `*Nama:* ${name}%0A` +
+                            `*Tanggal:* ${date}%0A` +
+                            `*Jumlah:* ${qty} Orang%0A` +
+                            `*Rincian:*%0A${breakdown}%0A` +
+                            `*TOTAL BIAYA:* ${totalPrice}%0A` +
+                            `-------------------------------------------%0A` +
+                            `_Mohon info ketersediaan. Terima kasih._`;
             
             window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
             modal.classList.remove('active');
-            
-            // Reset Form
             this.reset();
             priceContainer.style.display = 'none';
+            packGroup.style.display = 'block';
         };
 
 
