@@ -2207,6 +2207,26 @@ body {
     font-weight: 800;
 }
 
+.camping-features {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 20px 0 !important;
+}
+
+.camping-features li {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    font-size: 14px !important;
+    margin-bottom: 12px !important;
+    color: #555 !important;
+}
+
+.camping-features li i {
+    color: var(--primary-color) !important;
+    font-size: 12px !important;
+}
+
 .btn-booking {
     width: 100%;
     margin-top: 30px !important; /* Memberikan ruang agar tidak mepet */
