@@ -72,7 +72,7 @@
                 </ul>
 
                 <div class="nav-cta">
-                    <a href="https://api.whatsapp.com/send/?phone=6287788827526&text&type=phone_number&app_absent=0" target="_blank" class="btn btn-primary">Reservasi</a>
+                    <button class="btn btn-primary" id="navBookingBtn">Reservasi</button>
                 </div>
             </div>
         </nav>
@@ -629,10 +629,19 @@
         // Modal Logic
         const modal = document.getElementById('bookingModal');
         const openBtn = document.getElementById('openBookingModal');
+        const navBtn = document.getElementById('navBookingBtn'); // Tombol Navbar Baru
         const closeBtn = document.getElementById('closeModal');
 
         if(openBtn) {
             openBtn.onclick = () => modal.classList.add('active');
+        }
+
+        // Tambahkan pemicu dari Navbar
+        if(navBtn) {
+            navBtn.onclick = (e) => {
+                e.preventDefault();
+                modal.classList.add('active');
+            };
         }
         
         if(closeBtn) {
